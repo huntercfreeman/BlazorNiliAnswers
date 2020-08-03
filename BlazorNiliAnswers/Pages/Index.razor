@@ -1,5 +1,32 @@
 ﻿@page "/"
+@using Models
+@using Components
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<NavigationButton Href="counter" DisplayText="Go to counter" />
+
+<BlazorNiliAnswers.Shared.GenericGridList TItem="Person" Items="People">
+    <ItemTemplate Context="person">
+        <div style="margin-bottom: 5px; display: flex; flex-direction: column;">
+            <div style="display: flex; align-items: center; width: 285px; height: 360px;">
+                @if (!string.IsNullOrWhiteSpace(person.ImagePath))
+                {
+                    <img src="@person.ImagePath" style="max-width: 285px; max-height: 360px;" />
+                }
+            </div>
+            <div>
+                <h5>@person.FirstName&nbsp;@person.LastName</h5>
+                <div>
+                    <h6 style="color:blue;font-family:verdana;">@(person.Rating)</h6>
+                    <ReviewStarGraph Rating="person.Rating" Max="5" />
+                </div>
+                <ReviewpersonComponent person="@person" OnReviewAdded="(() => StateHasChanged())" />
+                <div @onclick="(() => NavigateToPersonDetails(person.Id))" class="btn btn-success">Details</div>
+                <div @onclick="(() => NavigateToPersonEdit(person.Id))" class="btn btn-warning">Edit</div>
+            </div>
+        </div>
+    </ItemTemplate>
+</BlazorNiliAnswers.Shared.GenericGridList>

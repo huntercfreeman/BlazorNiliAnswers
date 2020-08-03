@@ -1,0 +1,1 @@
+﻿<h3 @onmouseover="(() => { IsHovered = !IsHovered; StateHasChanged(); })" @onmouseout="(() => { IsHovered = !IsHovered; StateHasChanged(); })" style="@IsHoveredCSS cursor: pointer;" @onclick="(() => NavigationManager.NavigateTo(Href))">@((MarkupString)DisplayText)</h3>
